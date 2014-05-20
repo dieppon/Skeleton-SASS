@@ -1,111 +1,165 @@
-/*
-* Skeleton-SASS V1.0
-* Copyright 2012 by Michael Lazer-Walker
-* https://github.com/lazerwalker/Skeleton-Sass
-*
-* Based off of Skeleton v1.1:
-* https://github.com/dhgamache/Skeleton
-*
-* Free to use under the MIT license.
-* http://www.opensource.org/licenses/mit-license.php
-*/
-
-/* #Variable Definitions
-================================================== */
-    $base-width: 960px;
-    $tablet-width: 768px;
-    $mobile-portrait-width: 300px;
-    $mobile-landscape-width: 420px;
-
-    $num-columns: 16;
-    $margin: 10px;
-
-/* Grid
-================================================== */
-    @function skeleton-third-width($num: 1, $width: $base-width) {
-        @return $num * ($width / 3) - (2 * $margin); }
-
-    @function skeleton-column-width($num: 1, $width: $base-width) {
-        @return ($num * ($width / $num-columns)) - (2 * $margin); }
-
-    @mixin container {
-        position: relative;
-        margin: 0 auto;
-        padding: 0;
-        width: $base-width;
-
-        &:after {
-            content: "\0020";
-            display: block;
-            height: 0;
-            clear: both;
-            visibility: hidden; }
-
-        @media only screen and (min-width: 768px) and (max-width: 959px) {
-            width: $tablet-width; }
-
-        @media only screen and (max-width: 767px) {
-            width: $mobile-portrait-width; }
-
-        @media only screen and (min-width: 480px) and (max-width: 767px) {
-            width: $mobile-landscape-width; } }
-
-    @mixin column {
-        float: left;
-        display: inline;
-        margin-left: $margin;
-        margin-right: $margin;
-
-        @media only screen and (max-width: 767px) { margin: 0; } }
-
-    @mixin row {
-        @include clearfix;
-        margin-bottom: 2 * $margin; }
-
-    @mixin alpha { margin-left: 0; }
-    @mixin omega { margin-right: 0; }
-
-    @mixin columns($num: 1) {
-        @include column;
-        width: skeleton-column-width($num, $base-width);
-
-        @media only screen and (min-width: 768px) and (max-width: 959px) {
-            width: skeleton-column-width($num, $tablet-width); }
-
-        @media only screen and (max-width: 767px) {
-            width: $mobile-portrait-width; }
-
-        @media only screen and (min-width: 480px) and (max-width: 767px) {
-            width: $mobile-landscape-width; } }
-
-    @mixin third($num: 1) {
-        @include column;
-        width: skeleton-third-width($num, $base-width);
-
-        @media only screen and (min-width: 768px) and (max-width: 959px) {
-            width: skeleton-third-width($num, $tablet-width); }
-
-        @media only screen and (max-width: 767px) {
-            width: $mobile-portrait-width; }
-
-        @media only screen and (min-width: 480px) and (max-width: 767px) {
-            width: $mobile-landscape-width; }}
-
-    @mixin offset($num: 1) {
-        $offset: 2 * $margin;
-        padding-left: skeleton-column-width($num, $base-width) + $offset;
-
-        @media only screen and (min-width: 768px) and (max-width: 959px) {
-            padding-left: skeleton-column-width($num, $tablet-width) + $offset; }
-
-        @media only screen and (max-width: 767px) {
-            padding-left: 0; } }
+//
+// Skeleton-SASS V1.0
+// Copyright 2014 by Victor Dieppa Garriga
+//
+// Branched off of Skeleton-SASS
+// by Michael Lazer-Walker
+// https://github.com/lazerwalker/Skeleton-Sass
+//
+// With the contributions of John Devine 
+// https://github.com/jdevine/Skeleton-SASS
+//
+// Based off of Skeleton v1.1:
+// https://github.com/dhgamache/Skeleton
+//
+// Free to use under the MIT license.
+// http://www.opensource.org/licenses/mit-license.php
+//
+//
+// #Variable Definitions
+//
+// $base-width: 960px;
+// $tablet-width: 768px;
+// $mobile-portrait-width: 300px;
+// $mobile-landscape-width: 420px;
+//
+// $num-columns: 16;
+// $margin: 10px;
+// $border-width: 0;
 
 
-/* #Clearing
-================================================== */
-/* Include clearfix on parent to clear nested columns,
-or wrap each row of columns in a @include row */
+// @media queries breakpoints
+
+@mixin respond-to($media){
+    // Bigger than standard 960 (devices and browsers)
+    @if $media == 'desktop' {
+        @media only screen and (min-width: 960px) { @content; }
+    }
+    // Smaller than standard 960 (devices and browsers)
+    @if $media == 'mobile-tablet' {
+        @media only screen and (max-width: 959px) { @content; }
+    }
+    // Tablet Portrait size to standard 960 (devices and browsers)
+    @if $media == 'tablet' {
+        @media only screen and (min-width: 768px) and (max-width: 959px) { @content; }
+    }
+    // All Mobile Sizes (devices and browser)
+    @if $media == 'mobile' {
+        @media only screen and (max-width: 767px) { @content; }
+    }
+    // Mobile Portrait Size to Mobile Landscape Size (devices and browsers)
+    @if $media == 'mobile-portrait' {
+        @media only screen and (max-width: 479px) { @content; }
+    }
+    // Mobile Landscape Size to Tablet Portrait (devices and browsers)
+    @if $media == 'mobile-landscape' {
+        @media only screen and (min-width: 480px) and (max-width: 767px) { @content; }
+    }
+}
+
+// Grid
+
+ @function skeleton-third-width($num: 1, $width: $base-width, $border: $border-width ) {
+    @return $num * ($width / 3) - (2 * $margin) - (2 * $border);
+}
+
+@function skeleton-column-width($num: 1, $width: $base-width, $border: $border-width) {
+    @return ($num * ($width / $num-columns)) - (2 * $margin) - (2 * $border);
+}
+
+@mixin container {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    width: $base-width;
+
+    &:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+    @include respond-to(tablet) {
+        width: $tablet-width;
+    }
+
+    @include respond-to(mobile) {
+        width: $mobile-portrait-width;
+    }
+
+    @include respond-to(mobile-portrait) {
+        width: $mobile-landscape-width;
+    }
+}
+
+@mixin column {
+    float: left;
+    display: inline;
+    margin-left: $margin;
+    margin-right: $margin;
+
+    @include respond-to(mobile) { margin: 0; }
+}
+
+@mixin row {
+    @include clearfix;
+    margin-bottom: 2 * $margin;
+}
+
+@mixin alpha { margin-left: 0; }
+@mixin omega { margin-right: 0; }
+
+@mixin columns($num: 1, $border: $border-width) {
+    @include column;
+    width: skeleton-column-width($num, $base-width);
+
+    @include respond-to(tablet) {
+        width: skeleton-column-width($num, $tablet-width); }
+
+    @include respond-to(mobile) {
+        width: $mobile-portrait-width - (2 * $border); }
+
+    @include respond-to(mobile-portrait) {
+        width: $mobile-landscape-width  - (2 * $border); }
+    }
+
+@mixin third($num: 1, $border: $border-width) {
+    @include column;
+    width: skeleton-third-width($num, $base-width);
+
+    @include respond-to(tablet) {
+        width: skeleton-third-width($num, $tablet-width);
+    }
+
+    @include respond-to(mobile) {
+        width: $mobile-portrait-width - (2 * $border);
+    }
+
+    @include respond-to(mobile-portrait) {
+        width: $mobile-landscape-width - (2 * $border);
+    }
+}
+
+@mixin offset($num: 1) {
+    $offset: 2 * $margin;
+    padding-left: skeleton-column-width($num, $base-width) + $offset;
+
+    @include respond-to(tablet) {
+        padding-left: skeleton-column-width($num, $tablet-width) + $offset;
+    }
+
+    @include respond-to(mobile) {
+        padding-left: 0;
+    }
+}
+
+
+// #Clearing
+
+// Include clearfix on parent to clear nested columns, or wrap each row of columns in a @include row 
+
 @mixin clearfix {
     zoom: 1;
     &:after { clear: both; }
@@ -115,14 +169,48 @@ or wrap each row of columns in a @include row */
         overflow: hidden;
         visibility: hidden;
         width: 0;
-        height: 0; } }
+        height: 0;
+    }
+}
 
-/* You can also use a @include clear to clear columns */
+// You can also use a @include clear to clear columns 
 @mixin clear {
     clear: both;
     display: block;
     overflow: hidden;
     visibility: hidden;
     width: 0;
-    height: 0; }
+    height: 0;
+}
 
+// You can also use a @include to print the column grid
+
+@mixin columns-list {
+    @for $i from 1 through $num-columns - 1 {
+        &.number-#{$i} {
+            @include columns($i);
+        }
+    }
+    &.full{
+        @include columns($num-columns);
+    }
+    &.one-third{
+        @include third(1);
+    }
+    &.one-third{
+        @include third(1);
+    }
+    &.two-thirds{
+        @include third(2);
+    }
+}
+
+//  You can also use a @include to print the column offsets
+
+@mixin offset-list {
+    @for $i from 1 through $num-columns - 1 {
+        .offset-#{$i} {
+            @include offset($i);
+        }
+    }
+}
