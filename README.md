@@ -8,7 +8,7 @@ You can still use the pre-define classes to quickly build the grid by using just
 
 The other big advantage of Skeleton-SASS is that the actual grid widths are only calculated at compile-time. This means that your page width, number of columns, and margin sizes are all easily tweakable if you want to mix things up —- say, switch from a 16-column grid to a 24-column, or bump everything up to 1024px instead of 960px.
 
-The @media queries have been *mixin-fied* for a clear implementation throughout your project using , using `respond-to` simple names such as *desktop, tablet* or *mobile*.
+The @media queries have been *mixin-fied* for a clear implementation throughout your project. Use `respond-to()` with simple names such as *desktop, tablet* or *mobile* rather complicate min and max widths.
 
 ###Usage
 
