@@ -89,7 +89,7 @@
         width: $mobile-portrait-width;
     }
 
-    @include respond-to(mobile-portrait) {
+    @include respond-to(mobile-landscape) {
         width: $mobile-landscape-width;
     }
 }
@@ -121,7 +121,7 @@
     @include respond-to(mobile) {
         width: $mobile-portrait-width - (2 * $border); }
 
-    @include respond-to(mobile-portrait) {
+    @include respond-to(mobile-landscape) {
         width: $mobile-landscape-width  - (2 * $border); }
     }
 
@@ -137,7 +137,7 @@
         width: $mobile-portrait-width - (2 * $border);
     }
 
-    @include respond-to(mobile-portrait) {
+    @include respond-to(mobile-landscape) {
         width: $mobile-landscape-width - (2 * $border);
     }
 }
