@@ -33,15 +33,15 @@
 @mixin respond-to($media){
     // Bigger than standard 960 (devices and browsers)
     @if $media == 'desktop' {
-        @media only screen and (min-width: 960px) { @content; }
+        @media only screen and (min-width: $base-width) { @content; }
     }
     // Smaller than standard 960 (devices and browsers)
     @if $media == 'mobile-tablet' {
-        @media only screen and (max-width: 959px) { @content; }
+        @media only screen and (max-width: ($base-width - 1px)) { @content; }
     }
     // Tablet Portrait size to standard 960 (devices and browsers)
     @if $media == 'tablet' {
-        @media only screen and (min-width: 768px) and (max-width: 959px) { @content; }
+        @media only screen and (min-width: 768px) and (max-width: ($base-width - 1px)) { @content; }
     }
     // All Mobile Sizes (devices and browser)
     @if $media == 'mobile' {
