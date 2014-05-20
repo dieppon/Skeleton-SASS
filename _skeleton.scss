@@ -59,12 +59,15 @@
 
 // Grid
 
- @function skeleton-third-width($num: 1, $width: $base-width, $border: $border-width ) {
+@function skeleton-third-width($num: 1, $width: $base-width, $border: $border-width ) {
     @return $num * ($width / 3) - (2 * $margin) - (2 * $border);
 }
 
 @function skeleton-column-width($num: 1, $width: $base-width, $border: $border-width) {
     @return ($num * ($width / $num-columns)) - (2 * $margin) - (2 * $border);
+}
+@function skeleton-mobile-width($width: $base-width, $border: $border-width) {
+    @return $width - (2 * $border);
 }
 
 @mixin container {
@@ -111,7 +114,7 @@
 @mixin alpha { margin-left: 0; }
 @mixin omega { margin-right: 0; }
 
-@mixin columns($num: 1, $border: $border-width) {
+@mixin columns($num: 1) {
     @include column;
     width: skeleton-column-width($num, $base-width);
 
@@ -119,13 +122,13 @@
         width: skeleton-column-width($num, $tablet-width); }
 
     @include respond-to(mobile) {
-        width: $mobile-portrait-width - (2 * $border); }
+        width: skeleton-mobile-width($mobile-portrait-width) }
 
     @include respond-to(mobile-landscape) {
-        width: $mobile-landscape-width  - (2 * $border); }
+        width: skeleton-mobile-width($mobile-landscape-width ) }
     }
 
-@mixin third($num: 1, $border: $border-width) {
+@mixin third($num: 1) {
     @include column;
     width: skeleton-third-width($num, $base-width);
 
@@ -134,11 +137,11 @@
     }
 
     @include respond-to(mobile) {
-        width: $mobile-portrait-width - (2 * $border);
+        width: skeleton-mobile-width($mobile-portrait-width);
     }
 
     @include respond-to(mobile-landscape) {
-        width: $mobile-landscape-width - (2 * $border);
+        width: skeleton-mobile-width($mobile-landscape-width);
     }
 }
 
