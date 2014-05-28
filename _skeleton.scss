@@ -43,6 +43,10 @@
     @if $media == 'tablet' {
         @media only screen and (min-width: 768px) and (max-width: ($base-width - 1px)) { @content; }
     }
+    // Bigger than 768, tablets and desktops (devices and browsers)
+    @if $media == 'no-mobile' {
+        @media only screen and (min-width: 768px) { @content; }
+    }
     // All Mobile Sizes (devices and browser)
     @if $media == 'mobile' {
         @media only screen and (max-width: 767px) { @content; }
