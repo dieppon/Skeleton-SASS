@@ -1,31 +1,35 @@
-//
-// Skeleton-SASS V1.0
-// Copyright 2014 by Victor Dieppa Garriga
-//
-// Branched off of Skeleton-SASS
-// by Michael Lazer-Walker
-// https://github.com/lazerwalker/Skeleton-Sass
-//
-// With the contributions of John Devine 
-// https://github.com/jdevine/Skeleton-SASS
-//
-// Based off of Skeleton v1.1:
-// https://github.com/dhgamache/Skeleton
-//
-// Free to use under the MIT license.
-// http://www.opensource.org/licenses/mit-license.php
-//
-//
-// #Variable Definitions
-//
+/**
+* Skeleton-SASS V1.0
+* Copyright 2014 by Victor Dieppa Garriga
+*
+* Branched off of Skeleton-SASS
+* by Michael Lazer-Walker
+* https://github.com/lazerwalker/Skeleton-Sass
+*
+* With the contributions of John Devine 
+* https://github.com/jdevine/Skeleton-SASS
+*
+* Based off of Skeleton v1.1:
+* https://github.com/dhgamache/Skeleton
+*
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+// Defaults (feel free to override)
+////////////////////////////////////////////////////////////////////////////////
+
 // $base-width: 960px;
-// $tablet-width: 768px;
+// $tablet-width: 748px;
 // $mobile-portrait-width: 300px;
 // $mobile-landscape-width: 420px;
 //
 // $num-columns: 16;
-// $margin: 10px;
+// $gutter-width: 10px;
 // $border-width: 0;
+// $class-column: 'number';
+// $class-offset: 'offset';
 
 
 // @media queries breakpoints
@@ -64,11 +68,11 @@
 // Grid
 
 @function skeleton-third-width($num: 1, $width: $base-width, $border: $border-width ) {
-    @return $num * ($width / 3) - (2 * $margin) - (2 * $border);
+    @return $num * ($width / 3) - (2 * $gutter-width) - (2 * $border);
 }
 
 @function skeleton-column-width($num: 1, $width: $base-width, $border: $border-width) {
-    @return ($num * ($width / $num-columns)) - (2 * $margin) - (2 * $border);
+    @return ($num * ($width / $num-columns)) - (2 * $gutter-width) - (2 * $border);
 }
 @function skeleton-mobile-width($width: $base-width, $border: $border-width) {
     @return $width - (2 * $border);
@@ -104,15 +108,15 @@
 @mixin column {
     float: left;
     display: inline;
-    margin-left: $margin;
-    margin-right: $margin;
+    margin-left: $gutter-width;
+    margin-right: $gutter-width;
 
     @include respond-to(mobile) { margin: 0; }
 }
 
 @mixin row {
     @include clearfix;
-    margin-bottom: 2 * $margin;
+    margin-bottom: 2 * $gutter-width;
 }
 
 @mixin alpha { margin-left: 0; }
@@ -150,7 +154,7 @@
 }
 
 @mixin offset($num: 1) {
-    $offset: 2 * $margin;
+    $offset: 2 * $gutter-width;
     padding-left: skeleton-column-width($num, $base-width) + $offset;
 
     @include respond-to(tablet) {
@@ -194,11 +198,12 @@
 
 @mixin columns-list {
     @for $i from 1 through $num-columns - 1 {
-        &.number-#{$i} {
+        &.#{$class-column}-#{$i} {
             @include columns($i);
         }
     }
-    &.full{
+    &.#{$class-column}-#{$num-columns},
+    &.full-width{
         @include columns($num-columns);
     }
     &.one-third{
@@ -213,8 +218,45 @@
 
 @mixin offset-list {
     @for $i from 1 through $num-columns - 1 {
-        .offset-#{$i} {
+        .#{$class-offset}-#{$i} {
             @include offset($i);
         }
+    }
+}
+
+// This @include will generate everything you need
+
+@mixin generate-grid {
+    .container{
+        @include container;
+        .column{
+            @include column;
+        }
+    }
+    .row{
+        @include row;
+    }
+    .column{
+        &.alpha{
+            @include alpha;
+        }
+        &.omega{
+            @include omega;
+        }
+    }
+    .container {
+        .column{
+            @include columns-list;
+            &.push-right{
+                @include respond-to(no-mobile) {
+                    float: right;
+                }
+            }
+        }
+        @include offset-list;
+        @include clearfix;
+    }
+    .clear{
+        @include clear;
     }
 }
