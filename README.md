@@ -6,6 +6,8 @@ Skeleton-SASS is a one-to-one translation of the classes in Skeleton's grid fram
 
 You can still use the pre-define classes to quickly build the grid by using just 2 includes `column-list` and `offset-list`.
 
+You can generate the whole grid using the mixin `generate-grid`.
+
 The other big advantage of Skeleton-SASS is that the actual grid widths are only calculated at compile-time. This means that your page width, number of columns, and margin sizes are all easily tweakable if you want to mix things up —- say, switch from a 16-column grid to a 24-column, or bump everything up to 1024px instead of 960px.
 
 The @media queries have been *mixin-fied* for a clear implementation throughout your project. Use `respond-to()` with simple names such as *desktop, tablet* or *mobile* rather complicate min and max widths.
@@ -14,6 +16,6 @@ The @media queries have been *mixin-fied* for a clear implementation throughout 
 
 1. Add this partial to your project.
 
-2. Define *$base-width, $tablet-width, $mobile-portrait-width,$mobile-landscape-width, $num-columns, $margin, $border-width* with the rest of your varibles.
+2. Define *$base-width, $tablet-width, $mobile-portrait-width,$mobile-landscape-width, $num-columns, $gutter-width, $border-width, $class-column* and *$class-offset* with the rest of your varibles or remove the comment slashes ( // ).
 
 3. Use the mixins on your layout SCSS to quickly create a responsive grid.
